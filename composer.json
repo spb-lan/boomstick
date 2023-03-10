@@ -1,0 +1,40 @@
+{
+    "name": "lan/boomstick",
+    "description": "PHP Module for generate JSON structure of HTML forms and control elements for REST-API requests",
+    "minimum-stability": "stable",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Emil Limarenko",
+            "email": "ash_williams@mail.ru"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Lan\\Ebs\\Boomstick\\": "src/",
+            "Lan\\Ebs\\Boomstick\\Items\\": "src/Items",
+            "Lan\\Ebs\\Boomstick\\Interfaces\\": "src/Interfaces",
+            "Lan\\Ebs\\Boomstick\\Items\\Common\\": "src/Items/Common"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Lan\\Boomstick\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "7.0.* || 7.1.* || 7.2.* || 7.3.* || 7.4.* || 8.0.*"
+    },
+    "require-dev": {
+        "codeception/codeception": "^5.0",
+        "codeception/module-phpbrowser": "*",
+        "codeception/module-asserts": "*"
+    },
+    "config": {
+        "secure-http": false,
+        "sort-packages": true,
+        "platform": {
+            "php": "8.0"
+        }
+    }
+}

@@ -1,0 +1,16 @@
+\.orig\..*$
+\.orig$
+\.chg\..*$
+\.rej$
+\.conflict\~$
+
+^\.git/
+^\.hg/
+
+^\.idea
+
+^var\/
+^front\/
+^vendor\/
+\.hg
+/vendor
