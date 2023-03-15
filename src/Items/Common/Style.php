@@ -26,7 +26,7 @@ class Style
         return new self($active, $primaryKey, $width);
     }
 
-    public static function createPk($width = self::DEFAULT_WIDTH, $active = self::DEFAULT_ACTIVE, $pimaryKey = 1)
+    public static function createPk($width = self::DEFAULT_WIDTH, $active = self::DEFAULT_ACTIVE, $pimaryKey = self::DEFAULT_PRIMARY_KEY)
     {
         return new self($active, $pimaryKey, $width);
     }

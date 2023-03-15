@@ -215,7 +215,7 @@ class JsonFormTest extends \Codeception\Test\Unit
                 function ($button) {
                     /** @var Button $button */
                     //TODO убрать new
-                    $button->addAction(new Action('GET', '/api/v2/reports/stat/${subscriber_id}', 'ebs_get_stat_report'));
+                    $button->addAction(Action::createGet('/api/v2/reports/stat/${subscriber_id}', 'ebs_get_stat_report'));
                 })
             ->renderJson();
 
@@ -223,6 +223,35 @@ class JsonFormTest extends \Codeception\Test\Unit
 
         $this->assertJsonStringEqualsJsonString($ebsJsonFormExpectedString, $actualFormWithButtonActionGetString);
     }
+
+    // генерируем форму с кнопкой
+    public function testRenderJsonFormWithDateRange()
+    {
+        $expectedDatePickerObject = new \stdClass();
+        $expectedDatePickerObject->type = 'daterange';
+        $expectedDatePickerObject->actions =  [];
+        $expectedDatePickerObject->control = new \stdClass();
+        $expectedDatePickerObject->control->name = 'period';
+
+        $ebsFormExcpetedObject = new \stdClass();
+        $ebsFormExcpetedObject->left_area[] = $expectedDatePickerObject ;
+
+        //получили строчку json эталонного объекта
+        $ebsJsonFormExpectedString = json_encode($ebsFormExcpetedObject, JSON_UNESCAPED_UNICODE);
+
+        codecept_debug($ebsJsonFormExpectedString);
+
+        $this->assertJson($ebsJsonFormExpectedString);
+
+        $actualFormWithButtonActionGetString = JsonControlArea::create('left_area')
+            ->addDateRangePeriodFromTo()
+            ->renderJson();
+
+        codecept_debug($actualFormWithButtonActionGetString);
+
+        $this->assertJsonStringEqualsJsonString($ebsJsonFormExpectedString, $actualFormWithButtonActionGetString);
+    }
+
 
 
     public function testRenderJsonFormWithButtonGetQueryInputs()

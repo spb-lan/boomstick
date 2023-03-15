@@ -67,7 +67,7 @@ class JsonButtonTest extends \Codeception\Test\Unit
         codecept_debug($ebsJsonFormString);
 
         //чекаем что оно json
-        $realJsonForm = new Button('load_excel_report', 'Загрузить Excel');
+        $realJsonForm = Button::create('load_excel_report', 'Загрузить Excel');
         $realJsonForm->renderJson();
         $this->assertJsonStringEqualsJsonString($realJsonForm->renderJson(), $ebsJsonFormString);
     }
@@ -95,7 +95,7 @@ class JsonButtonTest extends \Codeception\Test\Unit
         codecept_debug($ebsJsonFormString);
 
         //чекаем что оно json
-        $realJsonForm = new Button('load_excel_report', 'Загрузить Excel', function ($button) {
+        $realJsonForm = Button::create('load_excel_report', 'Загрузить Excel', function ($button) {
             $button->control->name = 'load_excel_report_2';
             $button->control->value = 'Загрузить Excel_2';
         });
@@ -133,7 +133,7 @@ class JsonButtonTest extends \Codeception\Test\Unit
         codecept_debug($ebsJsonFormString);
 
         //чекаем что оно json
-        $realJsonForm = new Button('load_excel_report', 'Загрузить Excel',
+        $realJsonForm = Button::create('load_excel_report', 'Загрузить Excel',
             function ($button) {
                 /** @var Button $button */
                 $button->addAction(Action::createGet('/api/v2/reports/stat/${subscriber_id}', 'ebs_get_stat_report', Action::EVENT_ON_CLICK));
@@ -169,13 +169,12 @@ class JsonButtonTest extends \Codeception\Test\Unit
         codecept_debug($ebsJsonFormString);
 
         //чекаем что оно json
-        $realJsonForm =Button::createSubmitButton('load_excel_report', 'Загрузить Excel',
+        $realJsonForm = Button::createSubmitButton('load_excel_report', 'Загрузить Excel',
             function ($button) {
                 /** @var Button $button */
-                $button->addAction(new Action('GET', '/api/v2/reports/stat/${subscriber_id}', 'ebs_get_stat_report', Action::EVENT_ON_CLICK));
+                $button->addAction(Action::createGet('/api/v2/reports/stat/${subscriber_id}', 'ebs_get_stat_report', Action::EVENT_ON_CLICK));
             });
 
         $this->assertJsonStringEqualsJsonString($realJsonForm->renderJson(), $ebsJsonFormString);
-
     }
 }

@@ -10,7 +10,7 @@ class Tabs implements Item
     public const TYPE = 'tab';
     public $actions = [];
 
-    public function __construct(
+    private function __construct(
         $anchor = 'default_name',
         $title = 'default_value',
         $description = 'default_label',
@@ -22,6 +22,16 @@ class Tabs implements Item
         $this->control->title = $title;
         $this->control->anchor = $anchor;
         $this->control->description = $description;
+    }
+
+    public static function create(
+        $anchor = 'default_name',
+        $title = 'default_value',
+        $description = 'default_label',
+        \Closure $callback = null,
+        $control = [])
+    {
+        return new self($anchor, $title, $description, $callback, $control);
     }
 
     /**

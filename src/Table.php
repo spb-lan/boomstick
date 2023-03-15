@@ -10,12 +10,24 @@ use Lan\Ebs\Boomstick\Items\Common\Style;
 class Table implements Item
 {
     public const TYPE = 'table';
-
+    public const DEFAULT_TABLE_NAME = 'default_table_name';
     public $header = '';
     public $actions = [];
     public $columns = [];
 
-    public static function create(string $tableName, array $rows = []): self
+    private function __construct(
+        $tableName = 'default_header',
+        $rows = [],
+        $columns = [],
+        \Closure $callback = null)
+    {
+        $this->type = self::TYPE;
+        $this->header = $tableName;
+        $this->rows = $rows;
+        $this->columns = $columns;
+    }
+
+    public static function create($tableName = 'DEFAULT_TABLE_NAME' , $rows = [], $columns = [], \Closure $callback = null): self
     {
         return new self($tableName, $rows);
     }
@@ -36,18 +48,6 @@ class Table implements Item
     {
         $this->actions[] = $action;
         return $this;
-    }
-
-    public function __construct(
-        $tableName = 'default_header',
-        $rows = [],
-        $columns = [],
-        \Closure $callback = null)
-    {
-        $this->type = self::TYPE;
-        $this->header = $tableName;
-        $this->rows = $rows;
-        $this->columns = $columns;
     }
 
     public function setRows($rows): self
@@ -76,7 +76,7 @@ class Table implements Item
 
     public function setColumnPk(string $name, string $caption, \Closure $callback = null): self
     {
-        $this->columns[] = Column::create($name, $caption, Style::createPk(), $callback);
+        $this->columns[] = Column::createWithPk($name, $caption, $callback);
         return $this;
     }
 

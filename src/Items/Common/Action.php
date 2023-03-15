@@ -3,7 +3,7 @@ namespace Lan\Ebs\Boomstick\Items\Common;
 
 class Action
 {
-    public function __construct(
+    private function __construct(
         $method = 'GET',
         $route = '/',
         $routeName = self::EVENT_ON_CLICK,
@@ -41,16 +41,16 @@ class Action
         return json_encode($this, JSON_UNESCAPED_UNICODE);
     }
 
-    public static function createGet($route, $routeName = self::DEFAULT_ROUTE_NAME, $event = self::EVENT_ON_CLICK, \Closure $callback = null)
+    public static function createGet($route, $routeName = self::DEFAULT_ROUTE_NAME, $event = self::EVENT_ON_CLICK, \Closure $callback = null) :self
     {
         return new self(self::METHOD_GET, $route, $routeName, $event, $callback);
     }
-    public static function createPost($route, $routeName = self::DEFAULT_ROUTE_NAME, $event = self::EVENT_ON_CLICK, \Closure $callback = null)
+    public static function createPost($route, $routeName = self::DEFAULT_ROUTE_NAME, $event = self::EVENT_ON_CLICK, \Closure $callback = null) :self
     {
         return new self(self::METHOD_POST, $route, $routeName, $event, $callback);
     }
 
-    public static function createPut($route, $routeName = self::DEFAULT_ROUTE_NAME, $event = self::EVENT_ON_CLICK, \Closure $callback = null)
+    public static function createPut($route, $routeName = self::DEFAULT_ROUTE_NAME, $event = self::EVENT_ON_CLICK, \Closure $callback = null):self
     {
         return new self(self::METHOD_PUT, $route, $routeName, $event, $callback);
     }

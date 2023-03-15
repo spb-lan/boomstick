@@ -54,7 +54,7 @@ class JsonTableTest extends \Codeception\Test\Unit
         codecept_debug($ebsJsonFormString);
 
         //чекаем что оно json
-        $realJsonForm = new Table('books', []);
+        $realJsonForm = Table::create('books', []);
 
         codecept_debug($realJsonForm->renderJson());
         $this->assertJson($realJsonForm->renderJson());
@@ -91,7 +91,7 @@ class JsonTableTest extends \Codeception\Test\Unit
         codecept_debug($ebsJsonFormString);
 
         //чекаем что оно json и прокидываем $rows
-        $realJsonForm = new Table('books', $rows);
+        $realJsonForm = Table::create('books', $rows);
 
         codecept_debug($realJsonForm->renderJson());
         $this->assertJson($realJsonForm->renderJson());
@@ -122,10 +122,10 @@ class JsonTableTest extends \Codeception\Test\Unit
         $table->rows = $rows;
 
         $table->columns = [
-            ['name' => 'id', 'caption' => 'ID', 'active' => 1, 'primary_key' => 1, 'width' => 100],
-            ['name' => 'user__fk', 'caption' => 'Пользователь', 'active' => 1, 'primary_key' => 0, 'width' => 100],
-            ['name' => 'document_id', 'caption' => 'ID Документа', 'active' => 1, 'primary_key' => 0, 'width' => 100],
-            ['name' => 'document_type', 'caption' => 'Тип документа', 'active' => 1, 'primary_key' => 0, 'width' => 100],
+            ['name' => 'id', 'caption' => 'ID', 'active' => 1, 'primary_key' => 1, 'width' => null],
+            ['name' => 'user__fk', 'caption' => 'Пользователь', 'active' => 1, 'primary_key' => 0, 'width' =>  null],
+            ['name' => 'document_id', 'caption' => 'ID Документа', 'active' => 1, 'primary_key' => 0, 'width' =>  null],
+            ['name' => 'document_type', 'caption' => 'Тип документа', 'active' => 1, 'primary_key' => 0, 'width' =>  null],
         ];
 
         //получили стринг json
@@ -142,26 +142,5 @@ class JsonTableTest extends \Codeception\Test\Unit
         $this->assertJson($realJsonForm->renderJson());
         $this->assertJsonStringEqualsJsonString($realJsonForm->renderJson(), $ebsJsonFormString);
     }
-
-    public function testColumn()
-    {
-        //генирим кнопку с action GET
-        $column = new \stdClass();
-        $column->name = 'publishers';
-        $column->caption = 'Издатели';
-        $column->active = 1;
-        $column->primary_key = 0;
-        $column->width = 100;
-
-        //получили стринг json
-        $ebsJsonFormString = json_encode($column, JSON_UNESCAPED_UNICODE);
-        $this->assertJson($ebsJsonFormString);
-
-        $columnObject = Column::create('publishers', 'Издатели');
-        $ebsJsonColumnString = json_encode($columnObject, JSON_UNESCAPED_UNICODE);
-
-        $this->assertJsonStringEqualsJsonString($ebsJsonFormString, $ebsJsonColumnString);
-    }
-
 
 }

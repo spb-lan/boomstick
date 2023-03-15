@@ -55,7 +55,7 @@ class JsonTabsTest extends \Codeception\Test\Unit
         codecept_debug($ebsJsonFormString);
 
         //чекаем что оно json
-        $realJsonForm = new Tabs('books', 'Книги', 'Новые книги');
+        $realJsonForm = Tabs::create('books', 'Книги', 'Новые книги');
 
         $this->assertJsonStringEqualsJsonString($realJsonForm->renderJson(), $ebsJsonFormString);
     }
@@ -92,8 +92,8 @@ class JsonTabsTest extends \Codeception\Test\Unit
         codecept_debug($ebsJsonFormString);
 
         //чекаем что оно json
-        $realJsonForm = new Tabs('books', 'Книги', 'Новые книги');
-        $realJsonForm->addAction(new Action('GET', '/api/v2/reports/stat/${subscriber_id}', 'ebs_get_stat_report', Action::EVENT_ON_CLICK));
+        $realJsonForm = Tabs::create('books', 'Книги', 'Новые книги');
+        $realJsonForm->addAction(Action::createGet('/api/v2/reports/stat/${subscriber_id}', 'ebs_get_stat_report', Action::EVENT_ON_CLICK));
         $this->assertJsonStringEqualsJsonString($realJsonForm->renderJson(), $ebsJsonFormString);
     }
 

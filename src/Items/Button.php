@@ -29,6 +29,17 @@ class Button implements Item
     }
 
     /**
+     * @param string $buttonName
+     * @param string $buttonValue
+     * @param \Closure|null $callBack
+     * @return Button
+     */
+    public static function create(string $buttonName, string $buttonValue, \Closure $callBack = null): self
+    {
+        return new self($buttonName, $buttonValue, $callBack);
+    }
+
+    /**
      * @param $name
      * @param $value
      * @param \Closure|null $callback
@@ -39,17 +50,6 @@ class Button implements Item
         $self = new self($submitButton, $submitValue, $callback);
         $self->control->type = 'submit';
         return $self;
-    }
-
-    /**
-     * @param string $buttonName
-     * @param string $buttonValue
-     * @param \Closure|null $callBack
-     * @return Button
-     */
-    public static function createButton(string $buttonName, string $buttonValue, \Closure $callBack = null): Button
-    {
-        return new self($buttonName, $buttonValue, $callBack);
     }
 
     /**

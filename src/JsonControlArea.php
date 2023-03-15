@@ -6,6 +6,7 @@ use Lan\Ebs\Boomstick\Interfaces\Area;
 use Lan\Ebs\Boomstick\Interfaces\Item;
 use Lan\Ebs\Boomstick\Items\AreaItem;
 use Lan\Ebs\Boomstick\Items\Button;
+use Lan\Ebs\Boomstick\Items\Daterange;
 
 class JsonControlArea extends AreaItem implements Area
 {
@@ -82,7 +83,12 @@ class JsonControlArea extends AreaItem implements Area
      */
     public function addButton(string $buttonName, string $buttonValue, \Closure $buttonCallback = null): self
     {
-        return $this->addItem(Button::createButton($buttonName, $buttonValue, $buttonCallback));
+        return $this->addItem(Button::create($buttonName, $buttonValue, $buttonCallback));
+    }
+
+    public function addDateRangePeriodFromTo()
+    {
+        return $this->addItem(Daterange::create('period'));
     }
 
     /**

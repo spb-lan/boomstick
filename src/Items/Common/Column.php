@@ -24,6 +24,11 @@ class Column implements \JsonSerializable
         return new self($name, $caption, $style, $callback);
     }
 
+    public static function createWithPk(string $name, string $caption, ?\Closure $callback = null)
+    {
+        return Column::create($name, $caption, Style::createPk(), $callback);
+    }
+
     public function jsonSerialize()
     {
         if (empty($this->style)) {

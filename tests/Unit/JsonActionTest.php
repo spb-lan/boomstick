@@ -46,7 +46,7 @@ class JsonActionTest extends \Codeception\Test\Unit
         codecept_debug($ebsJsonFormString);
 
         //чекаем что оно json
-        $actualJsonAction = new Action('GET', '/api/v2/reports/stat/${subscriber_id}', 'ebs_get_stat_report', Action::EVENT_ON_CLICK);
+        $actualJsonAction = Action::createGet('/api/v2/reports/stat/${subscriber_id}', 'ebs_get_stat_report', Action::EVENT_ON_CLICK);
         $actualActionString = $actualJsonAction->renderJson();
 
         codecept_debug($actualActionString);
